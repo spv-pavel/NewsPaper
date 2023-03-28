@@ -1,0 +1,20 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+    New
+{% endblock title %}
+
+{% block content %}
+    <table>
+        <tr>
+            <td>Заголовок</td>
+            <td>Дата публикации</td>
+            <td>Текст</td>
+        </tr>
+        <tr>
+            <td>{{ new.title }}</td>
+            <td>{{ new.data_create|date:'d M Y' }}</td>
+            <td>{{ new.text }}</td>
+        </tr>
+    </table>
+{% endblock content %}
