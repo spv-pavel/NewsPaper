@@ -4,7 +4,7 @@
 
 <!-- Название у нас будет products -->
 {% block title %}
-    News
+    Новости
 {% endblock title %}
 
 <!-- В контенте на странице мы выводим все товары -->
@@ -16,13 +16,13 @@
             <tr>
                 <td>Заголовок</td>
                 <td>Дата публикации</td>
-                <td>Текст</td>
+                <td>Содержание</td>
             </tr>
             {% for new in news %}
             <tr>
-                <td>{{ new.title }}</td>
+                <td>{{ new.title|censor }}</td>
                 <td>{{ new.data_create|date:'d M Y' }}</td>
-                <td>{{ new.text|censor }}</td>
+                <td>{{ new.text|censor|truncatewords:20 }}</td>
             </tr>
             {% endfor %}
         </table>

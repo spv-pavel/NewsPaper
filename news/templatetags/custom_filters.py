@@ -4,7 +4,8 @@ from django import template
 register = template.Library()
 
 BED_WORDS = [
-    'редиска'
+    'редиска',
+    'какашка',
 ]
 
 
