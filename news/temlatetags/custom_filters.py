@@ -3,20 +3,20 @@ from django import template
 
 register = template.Library()
 
-CURRENCIES_SYMBOLS = {
-   'rub': '₽',
-   'usd': '$',
-}
+BED_WORDS = [
+    'редиска'
+]
 
 
 # Регистрируем наш фильтр под именем currency, чтоб Django понимал,
 # что это именно фильтр для шаблонов, а не простая функция.
 @register.filter()
-def censor(value, code='rub'):
-    """
-    Value: значение, к которому нужно применить фильтр
-    code: код валюты
-    """
-    postfix = CURRENCIES_SYMBOLS[code]
+def censor(value):
+    if not isinstance(value, str):
+        raise ValueError('Фильтр только для строк')
 
-    return f'{value} {postfix}'
+    words = value.split()
+    for i, word in enumerate(words):
+        if word.lower() in BED_WORDS:
+            words[i] = '*' * len(word)
+    return ' '.join(words)
