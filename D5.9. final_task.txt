@@ -1,0 +1,95 @@
+python manage.py shell
+
+from news.models import User, Author, Category, Post, PostCategory, Comment
+user1 = User.objects.create_user('user1')
+Author.objects.create(user=user1)
+user2 = User.objects.create_user('user2')
+Author.objects.create(user=user2)
+
+Category.objects.create(category_name='sport')
+Category.objects.create(category_name='politics')
+Category.objects.create(category_name='education')
+Category.objects.create(category_name='weather')
+
+Post.objects.create(author_id=1)
+Post.objects.create(author_id=1, types='ARTI')
+Post.objects.create(author_id=2, types='ARTI')
+
+PostCategory.objects.create(post_id=1, category_id=1)
+PostCategory.objects.create(post_id=2, category_id=2)
+PostCategory.objects.create(post_id=3, category_id=3)
+PostCategory.objects.create(post_id=1, category_id=2)
+
+Comment.objects.create(post_id=1, user_id=2)
+Comment.objects.create(post_id=2, user_id=2, text='super')
+Comment.objects.create(post_id=3, user_id=2)
+Comment.objects.create(post_id=1, user_id=3)
+Comment.objects.create(post_id=2, user_id=3, text='normal')
+
+
+post = Post.objects.get(pk=1)
+post.like()
+post.like()
+post.dislike()
+post.post_rating
+
+post = Post.objects.get(pk=2)
+post.like()
+post.like()
+post.dislike()
+post.like()
+post.post_rating
+
+com = Comment.objects.get(pk=1)
+com.like()
+com.like()
+com.dislike()
+com.comment_rating
+
+com = Comment.objects.get(pk=2)
+com.like()
+com.like()
+com.dislike()
+com.comment_rating
+
+com = Comment.objects.get(pk=4)
+com.like()
+com.like()
+com.like()
+com.comment_rating
+
+author = Author.objects.get(pk=1)
+author.update_rating()
+author = Author.objects.get(pk=2)
+author.update_rating()
+
+best_author = Author.objects.order_by('-author_rating').first()
+best_user = User.objects.get(pk=best_author.user_id)
+message_best_user = {'The best: ' + best_user.username: 'with_rating: ' + str(best_author.author_rating)}
+message_best_user
+
+best_post = Post.objects.order_by('-post_rating').first()
+best_post_author = Author.objects.get(pk=best_post.author_id)
+best_post_user = User.objects.get(pk= best_post_author.user_id)
+
+message_best_post = {
+'date create: ': best_post.data_create,
+'username: ': best_post_user.username,
+'post rating: ': best_post.post_rating,
+'title: ': best_post.title,
+'text:' : best_post.text,
+}
+message_best_post
+
+comments = Comment.objects.filter(post_id=best_post.id)
+message_comment = {}
+all_comments = []
+for comment in comments:
+	message_comment.update({'date_create: ': comment.date_create})
+	message_comment.update({'user: ': User.objects.get(pk=comment.user_id).username})
+	message_comment.update({'comment_rating ': comment.comment_rating})
+	message_comment.update({'text ': comment.text})
+	all_comments.append(message_comment)
+	message_comment = {}
+
+all_comments
