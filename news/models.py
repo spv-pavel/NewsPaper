@@ -15,9 +15,6 @@ class Author(models.Model):
     author_rating = models.IntegerField(default=0)  # рейтинг пользователя
 
     def update_rating(self):
-        # суммарный рейтинг каждой статьи автора умножается на 3
-        # суммарные рейтинги всех комментариев автора;
-        # суммарный рейтинг всех комментариев к статьям автора
         rating_posts_author = Post.objects.filter(author_id=self.pk).aggregate(post_rating=Sum('post_rating'))['post_rating']  # noqa: E501
         rating_comments_author = Comment.objects.filter(user_id=self.user).aggregate(comment_rating=Sum('comment_rating'))['comment_rating']  # noqa: E501
         rating_comments_posts = Comment.objects.filter(post__author__user=self.user).aggregate(comment_rating=Sum('comment_rating'))['comment_rating']  # noqa: E501
@@ -77,8 +74,6 @@ class Post(models.Model):
         self.save()
 
     def preview(self):
-        # который возвращает начало статьи (предварительный просмотр) длиной
-        # 124 символа и добавляет многоточие в конце.
         return self.text[:124] + '...'
 
     def __str__(self):
