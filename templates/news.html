@@ -13,11 +13,13 @@
     {{ news|length }}
     {% if news %}
         <table>
-            <tr>
-                <td>Заголовок</td>
-                <td>Дата публикации</td>
-                <td>Содержание</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Дата публикации</th>
+                    <th>Содержание</th>
+                </tr>
+            </thead>
             {% for new in news %}
             <tr>
                 <td>{{ new.title|censor }}</td>
@@ -29,4 +31,5 @@
     {% else %}
         <h2>Товаров нет!</h2>
     {% endif %}
+    {% include 'paginate.html' %}
 {% endblock content %}

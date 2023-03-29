@@ -1,0 +1,37 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+    Поиск новостей
+{% endblock title %}
+
+{% block content %}
+<h1>Поиск новостей</h1>
+    {{ news|length }}
+    <form method="GET">
+        {{ filter.form }}
+        <input type="submit" value="Найти">
+    </form>
+    {% if news %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Дата публикации</th>
+                    <th>Содержание</th>
+                </tr>
+            </thead>
+            {% for new in filter.qs %}
+            <tr>
+                <td>{{ new.title|censor }}</td>
+                <td>{{ new.data_create|date:'d M Y' }}</td>
+                <td>{{ new.text|censor|truncatewords:20 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+    {% include 'paginate.html' %}
+{% endblock content %}

@@ -10,6 +10,7 @@ from django.db.models import Sum
 
 
 class Author(models.Model):
+    name = models.CharField(max_length=50)
     # связь «один к одному» с встроенной моделью пользователей User
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # type: User
     author_rating = models.IntegerField(default=0)  # рейтинг пользователя
@@ -22,6 +23,9 @@ class Author(models.Model):
         self.author_rating = rating_posts_author * 3 + rating_comments_author + rating_comments_posts  # noqa: E501
         self.save()
         return self.author_rating
+
+    def __str__(self):
+        return f'{self.name.title()}, {self.user}'
 
 
 class Category(models.Model):
@@ -77,7 +81,7 @@ class Post(models.Model):
         return self.text[:124] + '...'
 
     def __str__(self):
-        return f'{self.title}: {self.text[:20]}...'
+        return f'{self.types} {self.author} - {self.title}: {self.text[:20]}...'
 
 
 class PostCategory(models.Model):
