@@ -22,6 +22,11 @@
             </thead>
             {% for new in news %}
             <tr>
+                <td>
+                    <a href="{% url 'new' new.id %}">{{ new.title|title }}</a>
+                    <a href="{% url 'new_edit' new.id %}"><u>Редактировать</u></a>
+                    <a href="{% url 'new_delete' new.id %}"><u> Удалить </u></a>
+                </td>
                 <td>{{ new.title|censor }}</td>
                 <td>{{ new.data_create|date:'d M Y' }}</td>
                 <td>{{ new.text|censor|truncatewords:20 }}</td>
@@ -31,5 +36,6 @@
     {% else %}
         <h2>Товаров нет!</h2>
     {% endif %}
+    <a href="{% url 'new_add' %}">Добавить новость</a> <br>
     {% include 'paginate.html' %}
 {% endblock content %}

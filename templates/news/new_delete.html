@@ -1,0 +1,27 @@
+{% extends 'flatpages/base.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+    Новость
+{% endblock title %}
+
+{% block content %}
+    <h2>Вы действительно хотите удалить данный товар?</h2>
+    <table>
+        <tr>
+            <td>Заголовок</td>
+            <td>Дата публикации</td>
+            <td>Содержание</td>
+        </tr>
+        <tr>
+            <td>{{ new.title|censor }}</td>
+            <td>{{ new.data_create|date:'d M Y' }}</td>
+            <td>{{ new.text|censor }}</td>
+        </tr>
+    </table>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="подтвердить">
+    </form>
+{% endblock content %}

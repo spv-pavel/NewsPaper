@@ -69,6 +69,10 @@ class Post(models.Model):
     text = models.TextField(blank=False)
     post_rating = models.IntegerField(default=0)  # рейтинг статьи/новости
 
+    # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с новостью
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
+
     def like(self):
         self.post_rating += 1
         self.save()

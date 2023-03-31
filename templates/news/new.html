@@ -8,11 +8,13 @@
 
 {% block content %}
     <table>
-        <tr>
-            <td>Заголовок</td>
-            <td>Дата публикации</td>
-            <td>Содержание</td>
-        </tr>
+        <thead>
+            <tr>
+                <td>Заголовок</td>
+                <td>Дата публикации</td>
+                <td>Содержание</td>
+            </tr>
+        </thead>
         <tr>
             <td>{{ new.title|censor }}</td>
             <td>{{ new.data_create|date:'d M Y' }}</td>
