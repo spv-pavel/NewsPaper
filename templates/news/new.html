@@ -1,4 +1,4 @@
-{% extends 'flatpages/default.html' %}
+{% extends 'flatpages/base.html' %}
 
 {% load custom_filters %}
 
@@ -19,5 +19,4 @@
             <td>{{ new.text|censor }}</td>
         </tr>
     </table>
-    {% include 'paginate.html' %}
 {% endblock content %}

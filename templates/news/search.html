@@ -1,4 +1,4 @@
-{% extends 'flatpages/default.html' %}
+{% extends 'flatpages/base.html' %}
 
 {% load custom_filters %}
 
@@ -33,5 +33,4 @@
     {% else %}
         <h2>Новостей нет!</h2>
     {% endif %}
-    {% include 'paginate.html' %}
 {% endblock content %}

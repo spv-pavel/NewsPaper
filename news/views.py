@@ -8,7 +8,7 @@ class NewsList(ListView):
     # model = Post
     queryset = Post.objects.filter(types='NEWS')
     ordering = '-data_create'
-    template_name = 'news.html'
+    template_name = 'news/news.html'
     context_object_name = 'news'
     paginate_by = 10
 
@@ -16,7 +16,7 @@ class NewsList(ListView):
 class SearchNewsList(ListView):
     queryset = Post.objects.filter(types='NEWS')
     ordering = '-data_create'
-    template_name = 'search.html'
+    template_name = 'news/search.html'
     context_object_name = 'news'
     paginate_by = 10
 
@@ -28,5 +28,5 @@ class SearchNewsList(ListView):
 
 class NewDetail(DetailView):
     model = Post
-    template_name = 'new.html'
+    template_name = 'news/new.html'
     context_object_name = 'new'
